@@ -1,0 +1,55 @@
+{
+    "name": "eggheads/cakephp-object-storage",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Eggheads\\CakephpObjectStorage\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Eggheads\\CakephpObjectStorage\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git://github.com/EggheadsSolutions/eggheads-code-style"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:EggheadsSolutions/runkit-test-mocks.git"
+        }
+    ],
+    "require": {
+        "php": ">=8.0 || >=7.4",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "cakephp/cakephp": "^4.3",
+        "cakephp/debug_kit": "^4.7",
+        "eggheads/eggheads-code-style": "^2.1",
+        "mheap/phpunit-github-actions-printer": "^1.5",
+        "phpunit/phpunit": "^9.5"
+    },
+    "suggest": {
+        "eggheads/mocks": "Для удобства тестирования (создания моков) в проекте"
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@phpmd-check",
+            "@phpstan-check",
+            "@test"
+        ],
+        "cs-check": "phpcs --colors -p src/ tests/",
+        "cs-fix": "phpcbf --colors -p src/ tests/",
+        "phpmd-check": "vendor/bin/phpmd src/,tests/ text phpmd-ruleset.xml",
+        "phpstan-check": "vendor/bin/phpstan --configuration=phpstan.neon",
+        "test": "vendor/bin/phpunit --colors=always"
+    }
+}

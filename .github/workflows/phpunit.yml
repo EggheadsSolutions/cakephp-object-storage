@@ -1,0 +1,22 @@
+name: Unit Test
+
+# Controls when the action will run.
+on: [ pull_request ]
+
+jobs:
+  test:
+    name: PHP Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: [ '7.4', '8.0' ]
+    steps:
+      - uses: EggheadsSolutions/ci-php-unit-test@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          mysql: no
+          redis: no
+          clickhouse: yes
+          use-repository-config: no
+          app-local-php: no
+          post-install-cmd: no

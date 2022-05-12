@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    php8:
+        build: dev/php8
+        image: eggheads-php8
+        volumes:
+            - .:/var/www/
+    php7:
+        build: dev/php7
+        image: eggheads-php7
+        volumes:
+            - .:/var/www/
+
+# заходим в docker через: docker-compose exec -u www-data php8 bash
