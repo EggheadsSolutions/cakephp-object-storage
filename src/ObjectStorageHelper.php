@@ -5,7 +5,7 @@ namespace Eggheads\CakephpObjectStorage;
 
 use Eggheads\CakephpObjectStorage\Traits\Library;
 
-class ObjectStorageHelper
+final class ObjectStorageHelper
 {
     use Library;
 

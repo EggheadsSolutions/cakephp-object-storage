@@ -6,9 +6,9 @@ namespace Eggheads\CakephpObjectStorage\Tests;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use Eggheads\CakephpObjectStorage\Exception\ObjectStorageException;
-use Eggheads\CakephpObjectStorage\StorageConfig;
+use Eggheads\CakephpObjectStorage\ObjectStorageConfig;
 
-class StorageConfigTest extends TestCase
+class ObjectStorageConfigTest extends TestCase
 {
     /**
      * Для сохранения конфига
@@ -22,7 +22,7 @@ class StorageConfigTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->_savedConfig = Configure::read(StorageConfig::CONFIG_YANDEX_STORAGE);
+        $this->_savedConfig = Configure::read(ObjectStorageConfig::CONFIG_YANDEX_STORAGE);
         parent::setUp();
     }
 
@@ -31,7 +31,7 @@ class StorageConfigTest extends TestCase
      */
     public function tearDown(): void
     {
-        Configure::write(StorageConfig::CONFIG_YANDEX_STORAGE, $this->_savedConfig);
+        Configure::write(ObjectStorageConfig::CONFIG_YANDEX_STORAGE, $this->_savedConfig);
         parent::tearDown();
     }
 
@@ -40,13 +40,13 @@ class StorageConfigTest extends TestCase
      *
      * @return void
      * @throws ObjectStorageException
-     * @see StorageConfig::getYandexStorageCredentials()
+     * @see ObjectStorageConfig::getYandexStorageCredentials()
      */
     public function testGetYandexStorageCredentialsNoConfig(): void
     {
         $this->expectExceptionMessage('Не настроены доступы к YandexStorage');
-        Configure::write(StorageConfig::CONFIG_YANDEX_STORAGE, null);
-        StorageConfig::getYandexStorageCredentials();
+        Configure::write(ObjectStorageConfig::CONFIG_YANDEX_STORAGE, null);
+        ObjectStorageConfig::getYandexStorageCredentials();
     }
 
     /**
@@ -54,15 +54,15 @@ class StorageConfigTest extends TestCase
      *
      * @return void
      * @throws ObjectStorageException
-     * @see StorageConfig::getYandexStorageCredentials()
+     * @see ObjectStorageConfig::getYandexStorageCredentials()
      */
     public function testGetYandexStorageCredentialsBadConfig(): void
     {
         $this->expectExceptionMessage('Неправильно настроены доступы к YandexStorage');
-        $wrongConfig = StorageConfig::EMPTY_YANDEX_STORAGE_CONFIG;
+        $wrongConfig = ObjectStorageConfig::EMPTY_YANDEX_STORAGE_CONFIG;
         unset($wrongConfig['endpoint']);
-        Configure::write(StorageConfig::CONFIG_YANDEX_STORAGE, $wrongConfig);
-        StorageConfig::getYandexStorageCredentials();
+        Configure::write(ObjectStorageConfig::CONFIG_YANDEX_STORAGE, $wrongConfig);
+        ObjectStorageConfig::getYandexStorageCredentials();
     }
 
     /**
@@ -70,11 +70,11 @@ class StorageConfigTest extends TestCase
      *
      * @return void
      * @throws ObjectStorageException
-     * @see StorageConfig::getYandexStorageCredentials()
+     * @see ObjectStorageConfig::getYandexStorageCredentials()
      */
     public function testGetYandexStorageCredentials(): void
     {
-        Configure::write(StorageConfig::CONFIG_YANDEX_STORAGE, StorageConfig::EMPTY_YANDEX_STORAGE_CONFIG);
-        self::assertEquals(StorageConfig::EMPTY_YANDEX_STORAGE_CONFIG, StorageConfig::getYandexStorageCredentials());
+        Configure::write(ObjectStorageConfig::CONFIG_YANDEX_STORAGE, ObjectStorageConfig::EMPTY_YANDEX_STORAGE_CONFIG);
+        self::assertEquals(ObjectStorageConfig::EMPTY_YANDEX_STORAGE_CONFIG, ObjectStorageConfig::getYandexStorageCredentials());
     }
 }

@@ -5,12 +5,15 @@ namespace Eggheads\CakephpObjectStorage;
 
 use Eggheads\CakephpObjectStorage\Traits\Library;
 
-class ObjectStorageMock
+/**
+ * Управление логированием файлового клиента
+ */
+final class ObjectStorageMock
 {
     use Library;
 
     /**
-     * Выключение логгирования ObjectStorage
+     * Выключение логирования ObjectStorage
      *
      * @see ObjectStorage
      * @see FileClient::disableLog()
@@ -21,7 +24,7 @@ class ObjectStorageMock
     }
 
     /**
-     * Включение логгирования
+     * Включение логирования ObjectStorage
      *
      * @see ObjectStorage
      * @see FileClient::enableLog()

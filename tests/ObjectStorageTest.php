@@ -9,7 +9,7 @@ use Cake\TestSuite\TestCase;
 use Eggheads\CakephpObjectStorage\Exception\ObjectStorageException;
 use Eggheads\CakephpObjectStorage\FileClient;
 use Eggheads\CakephpObjectStorage\ObjectStorage;
-use Eggheads\CakephpObjectStorage\StorageConfig;
+use Eggheads\CakephpObjectStorage\ObjectStorageConfig;
 use Eggheads\CakephpObjectStorage\YandexClient;
 use Eggheads\Mocks\MethodMocker;
 use Exception;
@@ -46,7 +46,7 @@ class ObjectStorageTest extends TestCase
         $testString = 'fake1';
         $testBucket = self::TEST_BUCKET;
 
-        Configure::write(StorageConfig::CONFIG_CLIENT, $clientName);
+        Configure::write(ObjectStorageConfig::CONFIG_CLIENT, $clientName);
 
         $client = ObjectStorage::getInstance();
 
@@ -92,7 +92,7 @@ class ObjectStorageTest extends TestCase
         $testString = 'fake2';
         $testBucket = self::TEST_BUCKET;
 
-        Configure::write(StorageConfig::CONFIG_CLIENT, $clientName);
+        Configure::write(ObjectStorageConfig::CONFIG_CLIENT, $clientName);
 
         $client = ObjectStorage::getInstance();
 
@@ -135,7 +135,7 @@ class ObjectStorageTest extends TestCase
         $testString = 'fake3';
         $testBucket = self::TEST_BUCKET;
 
-        Configure::write(StorageConfig::CONFIG_CLIENT, $clientName);
+        Configure::write(ObjectStorageConfig::CONFIG_CLIENT, $clientName);
 
         $client = ObjectStorage::getInstance();
 

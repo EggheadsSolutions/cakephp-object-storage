@@ -5,13 +5,17 @@ namespace Eggheads\CakephpObjectStorage;
 
 use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
-use Cake\Core\Configure;
 use Cake\Log\Log;
 use Eggheads\CakephpObjectStorage\Exception\ObjectStorageException;
 use Eggheads\CakephpObjectStorage\Traits\Singleton;
 use Psr\Http\Message\StreamInterface;
 
-class YandexClient implements ObjectStorageInterface
+/**
+ * Yandex client
+ *
+ * @internal
+ */
+final class YandexClient implements ObjectStorageInterface
 {
     use Singleton;
 
@@ -33,7 +37,7 @@ class YandexClient implements ObjectStorageInterface
      */
     private function __construct()
     {
-        $this->_s3Client = new S3Client(StorageConfig::getYandexStorageCredentials());
+        $this->_s3Client = new S3Client(ObjectStorageConfig::getYandexStorageCredentials());
     }
 
     /**

@@ -21,8 +21,8 @@ interface ObjectStorageInterface
     /**
      * Удаление объекта в хранилище
      *
-     * @param string $bucketName
-     * @param string $key
+     * @param string $bucketName Имя бакета
+     * @param string $key Ключ в бакете
      * @return bool
      */
     public function deleteObject(string $bucketName, string $key): bool;
@@ -30,8 +30,8 @@ interface ObjectStorageInterface
     /**
      * Получение объекта из хранилища
      *
-     * @param string $bucketName
-     * @param string $key
+     * @param string $bucketName Имя бакета
+     * @param string $key Ключ в бакете
      * @return StreamInterface|null
      */
     public function getObject(string $bucketName, string $key): ?StreamInterface;
@@ -39,8 +39,8 @@ interface ObjectStorageInterface
     /**
      * Сохранение файла из хранилища на локальный диск
      *
-     * @param string $bucketName
-     * @param string $key
+     * @param string $bucketName Имя бакета
+     * @param string $key Ключ в бакете
      * @return string|null
      */
     public function download(string $bucketName, string $key): ?string;

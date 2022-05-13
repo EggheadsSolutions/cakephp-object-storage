@@ -7,9 +7,11 @@ use Cake\Core\Configure;
 use Eggheads\CakephpObjectStorage\Exception\ObjectStorageException;
 use Psr\Http\Message\StreamInterface;
 
+/**
+ * Класс для работы с Object Storage
+ */
 final class ObjectStorage implements ObjectStorageInterface
 {
-
     /**
      * Клиент
      *
@@ -33,16 +35,15 @@ final class ObjectStorage implements ObjectStorageInterface
      */
     public static function getInstance(): ObjectStorageInterface
     {
-        $clientName = StorageConfig::getClientName();
+        $clientName = ObjectStorageConfig::getClientName();
         if (!is_null($clientName)) {
             $clientName = __NAMESPACE__ . '\\' . Configure::read('ObjectStorageClient');
-            // @todo проверить класс
-            /** @var ObjectStorageInterface $instance */
-            $instance = $clientName::getInstance();
-            if (!$instance instanceof ObjectStorageInterface) {
+
+            // Проверяем, что класс существует и имплементирует ObjectStorageInterface
+            if (!class_exists($clientName) || !in_array(ObjectStorageInterface::class, class_implements($clientName), true)) {
                 throw new ObjectStorageException('Неверный клиент для ObjectStorage');
             }
-            return new self($instance);
+            return new self($clientName::getInstance());
         }
         return new self(YandexClient::getInstance());
     }

@@ -9,7 +9,12 @@ use Eggheads\CakephpObjectStorage\Traits\Singleton;
 use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;
 
-class FileClient implements ObjectStorageInterface
+/**
+ * File Client
+ *
+ * @internal
+ */
+final class FileClient implements ObjectStorageInterface
 {
     use Singleton;
 

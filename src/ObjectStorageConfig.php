@@ -7,14 +7,22 @@ use Cake\Core\Configure;
 use Eggheads\CakephpObjectStorage\Exception\ObjectStorageException;
 use Eggheads\CakephpObjectStorage\Traits\Library;
 
-class StorageConfig
+/**
+ * Работа с конфигами
+ *
+ * @internal
+ */
+final class ObjectStorageConfig
 {
     use Library;
 
+    /** @var string Поле настройки клиента в конфиге */
     public const CONFIG_CLIENT = 'ObjectStorageClient';
 
+    /** @var string Поле настройки подключения к Yandex Storage в конфиге */
     public const CONFIG_YANDEX_STORAGE = 'yandexStorage';
 
+    /** Пример Yandex Storage конфига */
     public const EMPTY_YANDEX_STORAGE_CONFIG = [
         'version' => '',
         'endpoint' => '',
