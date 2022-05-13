@@ -77,14 +77,4 @@ class StorageConfigTest extends TestCase
         Configure::write(StorageConfig::CONFIG_YANDEX_STORAGE, StorageConfig::EMPTY_YANDEX_STORAGE_CONFIG);
         self::assertEquals(StorageConfig::EMPTY_YANDEX_STORAGE_CONFIG, StorageConfig::getYandexStorageCredentials());
     }
-
-    /**
-     * Ntcn
-     *
-     * @return void
-     */
-    public function testTe(): void
-    {
-        self::assertTrue(false);
-    }
 }
