@@ -12,5 +12,5 @@ Configure::config('default', new PhpConfig());
 try {
     Configure::load('app_local', 'default');
 } catch (Exception $e) {
-    echo 'Необходимо добавить app_local.php';
+    // Ничего не делаем, чтобы не сломать автопроверки
 }
