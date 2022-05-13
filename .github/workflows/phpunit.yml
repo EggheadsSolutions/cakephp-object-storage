@@ -3,6 +3,10 @@ name: Unit Test
 # Controls when the action will run.
 on: [ pull_request ]
 
+env:
+    YANDEX_STORAGE_KEY: ${{ secrets.YANDEX_STORAGE_KEY }}
+    YANDEX_STORAGE_SECRET: ${{ secrets.YANDEX_STORAGE_SECRET }}
+
 jobs:
   test:
     name: PHP Unit Tests
@@ -17,6 +21,5 @@ jobs:
           mysql: no
           redis: no
           clickhouse: yes
-          use-repository-config: no
-          app-local-php: no
+          use-repository-config: yes
           post-install-cmd: no
