@@ -16,6 +16,7 @@ use Exception;
 
 class ObjectStorageTest extends TestCase
 {
+    /** @var string Бакет для интеграционных тестов */
     private const TEST_BUCKET = 'dev-eh-integration-test';
 
     /**
@@ -43,10 +44,7 @@ class ObjectStorageTest extends TestCase
     {
         $testKey = 'testKey1';
         $testString = 'fake1';
-
         $testBucket = self::TEST_BUCKET;
-
-        //ObjectStorageMock::disableLog();
 
         Configure::write(StorageConfig::CONFIG_CLIENT, $clientName);
 
@@ -79,8 +77,73 @@ class ObjectStorageTest extends TestCase
         self::assertNull($client->getObject($testBucket, $testKey));
     }
 
-    public function testBad(): void
+    /**
+     * Тестируем запись в бакет из файла
+     *
+     * @param string $clientName
+     * @return void
+     * @group integration
+     * @dataProvider dataProviderTestStorage
+     * @throws ObjectStorageException
+     */
+    public function testWriteFromFile(string $clientName): void
     {
-        self::assertTrue(false);
+        $testKey = 'fileTestKey2';
+        $testString = 'fake2';
+        $testBucket = self::TEST_BUCKET;
+
+        Configure::write(StorageConfig::CONFIG_CLIENT, $clientName);
+
+        $client = ObjectStorage::getInstance();
+
+        // Создаем файл на диске
+        $filePath = TMP . 'YandexObjectStorageTestWriteFromFile.txt';
+        file_put_contents($filePath, $testString);
+
+        /** @var string Ожидаемый url загруженного объекта */
+        $expectObjectUrl = $clientName === 'YandexClient' ?
+            sprintf('https://%s.%s/%s', $testBucket, YandexClient::YANDEX_STORAGE_URL, $testKey) :
+            FileClient::FAKE_URL;
+
+        self::assertEquals(
+            $expectObjectUrl,
+            $client->putObject($testBucket, $testKey, null, $filePath)
+        );
+
+        self::assertEquals(
+            $testString,
+            $client->getObject($testBucket, $testKey)->read(strlen($testString))
+        );
+
+        self::assertTrue(
+            $client->deleteObject($testBucket, $testKey)
+        );
+    }
+
+    /**
+     * Тестируем скачивание
+     *
+     * @group integration
+     * @param string $clientName
+     * @return void
+     * @dataProvider dataProviderTestStorage
+     * @throws ObjectStorageException
+     */
+    public function testDownload(string $clientName): void
+    {
+        $testKey = 'fileTestKey3';
+        $testString = 'fake3';
+        $testBucket = self::TEST_BUCKET;
+
+        Configure::write(StorageConfig::CONFIG_CLIENT, $clientName);
+
+        $client = ObjectStorage::getInstance();
+
+        $client->putObject($testBucket, $testKey, $testString);
+
+        $fileName = $client->download($testBucket, $testKey);
+
+        $downloadTestString = file_get_contents($fileName);
+        self::assertEquals($downloadTestString, $testString);
     }
 }
