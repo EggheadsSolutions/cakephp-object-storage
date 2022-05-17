@@ -25,9 +25,6 @@ final class FileClient implements ObjectStorageInterface
     /** @var string Папка для хранения временных файлов */
     private const STORAGE_DIRECTORY_TMP = TMP . 'object_storage_tmp' . DS;
 
-    /** @var string Фейковый публичный URL (т.к. мы не загружаем файл в облако) */
-    public const FAKE_URL = 'fakeUrl';
-
     /** @var bool Включение отключение логирования */
     private bool $_enableLog = true;
 
