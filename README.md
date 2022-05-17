@@ -14,7 +14,7 @@ composer require eggheads/cakephp-object-storage
 Добавить в файл конфигурации вашего проекта настройки подключения к YandexStorage
 
 ```php
-'yandexStorage' =>
+'yandexStorage' => [
     'version' => 'latest',
     'endpoint' => 'https://storage.yandexcloud.net',
     'region' => 'ru-central1',
