@@ -34,11 +34,24 @@ final class YandexClient implements ObjectStorageInterface
 
     /**
      * @inheritdoc
+     */
+    private function __construct(S3Client $s3Client)
+    {
+        $this->_s3Client = $s3Client;
+    }
+
+    /**
+     * Возвращает объект-одиночку
+     *
+     * @return self
      * @throws ObjectStorageException
      */
-    private function __construct()
+    public static function getInstance(): self
     {
-        $this->_s3Client = new S3Client(ObjectStorageConfig::getYandexStorageCredentials());
+        if (empty(self::$_instance)) {
+            self::$_instance = new YandexClient(new S3Client(ObjectStorageConfig::getYandexStorageCredentials()));
+        }
+        return self::$_instance;
     }
 
     /**
