@@ -5,6 +5,7 @@ namespace Eggheads\CakephpObjectStorage;
 
 use Cake\Log\Log;
 use Eggheads\CakephpObjectStorage\Exception\ObjectStorageException;
+use Eggheads\CakephpObjectStorage\Lib\Dir;
 use Eggheads\CakephpObjectStorage\Traits\Singleton;
 use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;
@@ -19,7 +20,7 @@ final class FileClient implements ObjectStorageInterface
     use Singleton;
 
     /** @var string Папка для хранения */
-    private const STORAGE_DIRECTORY = TMP . 'object_storage' . DS;
+    public const STORAGE_DIRECTORY = TMP . 'object_storage' . DS;
 
     /** @var string Папка для хранения временных файлов */
     private const STORAGE_DIRECTORY_TMP = TMP . 'object_storage_tmp' . DS;
@@ -37,8 +38,12 @@ final class FileClient implements ObjectStorageInterface
     public function __construct()
     {
         // Создаем директории, если не созданы
-        $this->_makeDirectory(self::STORAGE_DIRECTORY);
-        $this->_makeDirectory(self::STORAGE_DIRECTORY_TMP);
+        if (!Dir::createDir(self::STORAGE_DIRECTORY)) {
+            throw new ObjectStorageException(sprintf('Directory "%s" was not created', self::STORAGE_DIRECTORY_TMP));
+        }
+        if (!Dir::createDir(self::STORAGE_DIRECTORY_TMP)) {
+            throw new ObjectStorageException(sprintf('Directory "%s" was not created', self::STORAGE_DIRECTORY_TMP));
+        }
     }
 
     /**
@@ -58,7 +63,7 @@ final class FileClient implements ObjectStorageInterface
         if ($result === false) {
             throw new ObjectStorageException('Проблемы с записью файла');
         }
-        return self::FAKE_URL;
+        return $objectFilePath;
     }
 
     /** @inheritdoc */
@@ -150,20 +155,5 @@ final class FileClient implements ObjectStorageInterface
     private function _getObjectFileName(string $bucketName, string $key): string
     {
         return $bucketName . '_' . str_replace("/", '_', $key);
-    }
-
-    /**
-     * Создаём директорию для хранения файлов, если не создана
-     *
-     * @param string $directoryPath
-     * @throws ObjectStorageException
-     */
-    private function _makeDirectory(string $directoryPath): void
-    {
-        if (!is_dir($directoryPath)
-            && !mkdir($directoryPath, 0755, true)
-            && !is_dir($directoryPath)) {
-            throw new ObjectStorageException(sprintf('Directory "%s" was not created', $directoryPath));
-        }
     }
 }

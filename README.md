@@ -43,7 +43,7 @@ Configure::write('objectStorageClient', 'FileClient');
 Если необходимо протестировать полный цикл, то можно переключиться на FileClient (если еще глобально в тестах не переключено).
 При этом вся работа с хранилищем будет писаться в лог.
 
-Для запрета записи в лог используйте: `\Eggheads\CakephpObjectStorage\ObjectStorageMock::disableLog`.
+Для запрета записи в лог используйте: `\Eggheads\CakephpObjectStorage\FileClient::getInstance()->disableLog`.
 
 ## Формирование ключей для бакетов, класс ObjectStorageHelper
 ```\Eggheads\CakephpObjectStorage\ObjectStorageHelper```

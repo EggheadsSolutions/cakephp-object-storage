@@ -51,7 +51,7 @@ class ObjectStorageTest extends TestCase
         $client = ObjectStorage::getInstance();
 
         /** @var string Ожидаемый url загруженного объекта */
-        $expectObjectUrl = $clientName === 'FileClient' ? FileClient::FAKE_URL :
+        $expectObjectUrl = $clientName === 'FileClient' ? FileClient::STORAGE_DIRECTORY . $testBucket . '_' . $testKey :
             sprintf('https://%s.%s/%s', $testBucket, YandexClient::YANDEX_STORAGE_URL, $testKey);
 
         self::assertEquals(
@@ -103,7 +103,7 @@ class ObjectStorageTest extends TestCase
         /** @var string Ожидаемый url загруженного объекта */
         $expectObjectUrl = $clientName === 'YandexClient' ?
             sprintf('https://%s.%s/%s', $testBucket, YandexClient::YANDEX_STORAGE_URL, $testKey) :
-            FileClient::FAKE_URL;
+            FileClient::STORAGE_DIRECTORY . $testBucket . '_' . $testKey;
 
         self::assertEquals(
             $expectObjectUrl,

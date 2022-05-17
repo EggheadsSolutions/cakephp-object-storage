@@ -7,6 +7,7 @@ use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
 use Cake\Log\Log;
 use Eggheads\CakephpObjectStorage\Exception\ObjectStorageException;
+use Eggheads\CakephpObjectStorage\Lib\Dir;
 use Eggheads\CakephpObjectStorage\Traits\Singleton;
 use Psr\Http\Message\StreamInterface;
 
@@ -108,9 +109,7 @@ final class YandexClient implements ObjectStorageInterface
     public function download(string $bucketName, string $key): ?string
     {
         // Создаем директорию, если не создана
-        if (!is_dir(self::STORAGE_DIRECTORY)
-            && !mkdir(self::STORAGE_DIRECTORY, 0755, true)
-            && !is_dir(self::STORAGE_DIRECTORY)) {
+        if (!Dir::createDir(self::STORAGE_DIRECTORY)) {
             throw new ObjectStorageException(sprintf('Directory "%s" was not created', self::STORAGE_DIRECTORY));
         }
         $fileInfo = pathinfo($key);

@@ -9,6 +9,7 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * Класс для работы с Object Storage
+ * Прокси над клиентами YandexClient, FileClient
  */
 final class ObjectStorage implements ObjectStorageInterface
 {
