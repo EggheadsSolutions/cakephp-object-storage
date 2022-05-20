@@ -12,8 +12,6 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * File Client
- *
- * @internal
  */
 final class FileClient implements ObjectStorageInterface
 {

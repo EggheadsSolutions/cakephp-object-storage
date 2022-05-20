@@ -13,8 +13,6 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * Yandex client
- *
- * @internal
  */
 final class YandexClient implements ObjectStorageInterface
 {
