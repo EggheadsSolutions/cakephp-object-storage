@@ -17,7 +17,7 @@ final class ObjectStorageConfig
     use Library;
 
     /** @var string Поле настройки клиента в конфиге */
-    public const CONFIG_CLIENT = 'ObjectStorageClient';
+    public const CONFIG_CLIENT = 'objectStorageClient';
 
     /** @var string Поле настройки подключения к Yandex Storage в конфиге */
     public const CONFIG_YANDEX_STORAGE = 'yandexStorage';
