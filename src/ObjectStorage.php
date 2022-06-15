@@ -38,7 +38,7 @@ final class ObjectStorage implements ObjectStorageInterface
     {
         $clientName = ObjectStorageConfig::getClientName();
         if (!is_null($clientName)) {
-            $clientName = __NAMESPACE__ . '\\' . Configure::read('ObjectStorageClient');
+            $clientName = __NAMESPACE__ . '\\' . $clientName;
 
             // Проверяем, что класс существует и имплементирует ObjectStorageInterface
             if (!class_exists($clientName) || !in_array(ObjectStorageInterface::class, class_implements($clientName), true)) {
