@@ -33,23 +33,17 @@ final class YandexClient implements ObjectStorageInterface
     /**
      * @inheritdoc
      */
-    private function __construct(S3Client $s3Client)
+    private function __construct()
     {
-        $this->_s3Client = $s3Client;
+        $this->_initS3Client();
     }
 
     /**
-     * Возвращает объект-одиночку
-     *
-     * @return self
-     * @throws ObjectStorageException
+     * Инициализация S3 клиента
      */
-    public static function getInstance(): self
+    private function _initS3Client(): void
     {
-        if (empty(self::$_instance)) {
-            self::$_instance = new YandexClient(new S3Client(ObjectStorageConfig::getYandexStorageCredentials()));
-        }
-        return self::$_instance;
+        $this->_s3Client = new S3Client(ObjectStorageConfig::getYandexStorageCredentials());
     }
 
     /**
@@ -76,6 +70,7 @@ final class YandexClient implements ObjectStorageInterface
                 ->get('ObjectURL');
         } catch (S3Exception $s3Exception) {
             Log::error($s3Exception->getMessage());
+            $this->_initS3Client(); // Реинициализируем клиента, т.к. течет по памяти
         }
         return null;
     }
@@ -138,6 +133,7 @@ final class YandexClient implements ObjectStorageInterface
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedPrivateMethods)
+     * @phpstan-ignore-next-line
      */
     private function _clearBucket(string $bucketName, int $limit = self::DEFAULT_OBJECT_COUNT): void
     {
