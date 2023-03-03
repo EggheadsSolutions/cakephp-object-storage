@@ -133,6 +133,7 @@ final class YandexClient implements ObjectStorageInterface
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedPrivateMethods)
+     * @phpstan-ignore-next-line
      */
     private function _clearBucket(string $bucketName, int $limit = self::DEFAULT_OBJECT_COUNT): void
     {
