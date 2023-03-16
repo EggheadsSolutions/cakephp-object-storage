@@ -28,7 +28,7 @@
     "require": {
         "php": ">=8.0 || >=7.4",
         "ext-json": "*",
-        "aws/aws-sdk-php": "^3.222"
+        "aws/aws-sdk-php": "^3.261"
     },
     "require-dev": {
         "cakephp/cakephp": "^4.3",
