@@ -18,5 +18,5 @@ jobs:
       - name: 'Push To Gitlab'
         run: |
           branch_name=$(git rev-parse --abbrev-ref HEAD)
-          git remote set-url origin "https://mirror:${{  env.GITLAB_TOKEN  }}@gitlab.eggheads.solutions/eggheadssolutions/cakephp-object-storage.git"
+          git remote set-url origin "https://mirror:${{  env.GITLAB_TOKEN  }}@gitlab.eggheads.solutions/eggheadssolutions/backend/library/cakephp-object-storage.git"
           git push origin $branch_name
